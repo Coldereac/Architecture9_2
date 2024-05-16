@@ -1,26 +1,26 @@
-
+﻿
 
 #include <iostream>
 
 int main()
 {
-    int8_t arr[11] = { 2, 3, 10, 12, 20, 1, 30, 17, 29, 0, 5 }; 
-    int8_t res = 0;
+    int8_t arr[11] = { 2, 3, 10, 12, 20, 1, 30, 17, 29, 0, 5 }; //вхідний масив
+    int8_t res = 0; //кількість чисел більше за 7
     __asm {
-        mov ecx, 11
-        lea esi, arr
-        xor bl, bl
+        mov ecx, 11 //надаємо ecx значення 11
+        lea esi, arr //надаємо esi адресу масива arr
+        xor bl, bl //обнуляємо лічильник
         loo:
-            lods
-            cmp al, 7
-            jl less
-            inc bl
-            loop loo
+            lods //надаємо al значення потрібного елемента arr(за допомогою esi та ecx)
+            cmp al, 7 //порівняння отриманого елемента з 7
+            jl less //якщо менше, то просто йдемо на наступний елемент
+            inc bl //якщо більше або дорівнює то збільшуємо лічильник
+            loop loo //наступний цикл
 
         less:
-            loop loo
+            loop loo //коли елемент менше 7, то просто йдемо на наступний цикл
 
-        mov res, bl
+        mov res, bl //виведення результату(кількості чисел, які більше 7)
     }
     std::cout << "Amout of numbers, that equal or greater than 7: " << (int)res;
     return 0;
